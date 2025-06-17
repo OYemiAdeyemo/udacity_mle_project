@@ -4,7 +4,6 @@ conda_env: conda.yml
 entry_points:
   main:
     parameters:
-
       steps:
         description: Comma-separated list of steps to execute (useful for debugging)
         type: str
@@ -15,4 +14,22 @@ entry_points:
         type: str
         default: ''
 
-    command: "python main.py main.steps=\\'{steps}\\' $(echo {hydra_options})"
+    command: >
+      python main.py main.steps='{steps}' $(echo {hydra_options})
+
+  basic_cleaning:
+    parameters:
+      input_artifact: {type: str}
+      output_artifact: {type: str}
+      output_type: {type: str}
+      output_description: {type: str}
+      min_price: {type: float}
+      max_price: {type: float}
+    command: >
+      python src/basic_cleaning/run.py
+      --input_artifact {input_artifact}
+      --output_artifact {output_artifact}
+      --output_type {output_type}
+      --output_description {output_description}
+      --min_price {min_price}
+      --max_price {max_price}
