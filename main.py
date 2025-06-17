@@ -66,11 +66,14 @@ def go(config: DictConfig):
             pass
 
 
-        # Filter out rows with prices outside min and max
+        # Load the data
+        df = pd.read_csv(args.input_artifact)
+
+        # Filter by price
         idx_price = df['price'].between(args.min_price, args.max_price)
         df = df[idx_price].copy()
 
-        # filter by longitude and latitude (NYC bounding box)
+        # Filter by location
         idx_geo = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
         df = df[idx_geo].copy()
 
