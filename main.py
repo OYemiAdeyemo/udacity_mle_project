@@ -65,6 +65,10 @@ def go(config: DictConfig):
     )
             pass
 
+        # Filter rows within NYC latitude and longitude bounds
+        idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+        df = df[idx].copy()
+
         if "data_check" in active_steps:
             _ = mlflow.run(
                 os.path.join(hydra.utils.get_original_cwd(), "src", "check_data"),
@@ -132,9 +136,14 @@ def go(config: DictConfig):
 
         if "test_regression_model" in active_steps:
 
-            ##################
-            # Implement here #
-            ##################
+            _ = mlflow.run(
+                os.path.join(hydra.utils.get_original_cwd(), "src", "test_regression_model"),
+                entry_point="main",
+                parameters={
+                    "mlflow_model": "random_forest_export:prod",
+                    "test_artifact": "test_data.csv:latest"
+                },
+            )
 
             pass
 
