@@ -3,6 +3,9 @@
 # wandb project link 
 https://wandb.ai/oyemiadeyemo-teesside-university/nyc_airbnb
 
+# Github repository link
+https://github.com/OYemiAdeyemo/udacity_mle_project
+
 This project builds a full machine learning pipeline to predict Airbnb listing prices in New York City. It uses tools like MLflow, Weights & Biases (W&B), Hydra, and scikit-learn.
 
 ## 🔧 Project Structure
